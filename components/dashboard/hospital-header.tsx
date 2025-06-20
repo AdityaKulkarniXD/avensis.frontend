@@ -55,10 +55,10 @@ export default function HospitalHeader({ user }: HospitalHeaderProps) {
             <Link href="/patients" className="text-gray-700 hover:text-blue-600 font-medium">
               Patients
             </Link>
-            <Link href="/departments" className="text-gray-700 hover:text-blue-600 font-medium">
+            <Link href="/dashboard/hospital?tab=departments" className="text-gray-700 hover:text-blue-600 font-medium">
               Departments
             </Link>
-            <Link href="/analytics" className="text-gray-700 hover:text-blue-600 font-medium">
+            <Link href="/dashboard/hospital?tab=analytics" className="text-gray-700 hover:text-blue-600 font-medium">
               Analytics
             </Link>
           </nav>

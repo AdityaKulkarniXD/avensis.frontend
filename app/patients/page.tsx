@@ -16,7 +16,7 @@ import HospitalHeader from '@/components/dashboard/hospital-header';
 export default function PatientsPage() {
   const [user, setUser] = useState<any>(null);
   const [searchTerm, setSearchTerm] = useState('');
-  const [filterStatus, setFilterStatus] = useState('');
+  const [filterStatus, setFilterStatus] = useState('all');
   const router = useRouter();
 
   const [patients] = useState([
@@ -160,7 +160,7 @@ export default function PatientsPage() {
   const filteredPatients = patients.filter(patient => {
     const matchesSearch = patient.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          patient.email.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesStatus = !filterStatus || patient.status === filterStatus;
+    const matchesStatus = filterStatus === 'all' || patient.status === filterStatus;
     return matchesSearch && matchesStatus;
   });
 
@@ -230,7 +230,7 @@ export default function PatientsPage() {
                     <SelectValue placeholder="All Statuses" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">All Statuses</SelectItem>
+                    <SelectItem value="all">All Statuses</SelectItem>
                     <SelectItem value="active">Active</SelectItem>
                     <SelectItem value="inactive">Inactive</SelectItem>
                     <SelectItem value="critical">Critical</SelectItem>

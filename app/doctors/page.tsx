@@ -15,8 +15,8 @@ import PatientHeader from '@/components/dashboard/patient-header';
 export default function DoctorsPage() {
   const [user, setUser] = useState<any>(null);
   const [searchTerm, setSearchTerm] = useState('');
-  const [filterSpecialty, setFilterSpecialty] = useState('');
-  const [filterRating, setFilterRating] = useState('');
+  const [filterSpecialty, setFilterSpecialty] = useState('all');
+  const [filterRating, setFilterRating] = useState('all');
   const router = useRouter();
 
   const [doctors] = useState([
@@ -145,8 +145,8 @@ export default function DoctorsPage() {
   const filteredDoctors = doctors.filter(doctor => {
     const matchesSearch = doctor.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          doctor.specialty.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesSpecialty = !filterSpecialty || doctor.specialty === filterSpecialty;
-    const matchesRating = !filterRating || doctor.rating >= parseFloat(filterRating);
+    const matchesSpecialty = filterSpecialty === 'all' || doctor.specialty === filterSpecialty;
+    const matchesRating = filterRating === 'all' || doctor.rating >= parseFloat(filterRating);
     return matchesSearch && matchesSpecialty && matchesRating;
   });
 
@@ -205,7 +205,7 @@ export default function DoctorsPage() {
                     <SelectValue placeholder="All Specialties" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">All Specialties</SelectItem>
+                    <SelectItem value="all">All Specialties</SelectItem>
                     <SelectItem value="Cardiology">Cardiology</SelectItem>
                     <SelectItem value="General Medicine">General Medicine</SelectItem>
                     <SelectItem value="Pediatrics">Pediatrics</SelectItem>
@@ -222,7 +222,7 @@ export default function DoctorsPage() {
                     <SelectValue placeholder="Any Rating" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">Any Rating</SelectItem>
+                    <SelectItem value="all">Any Rating</SelectItem>
                     <SelectItem value="4.5">4.5+ Stars</SelectItem>
                     <SelectItem value="4.0">4.0+ Stars</SelectItem>
                     <SelectItem value="3.5">3.5+ Stars</SelectItem>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -22,6 +23,7 @@ import DoctorManagement from '@/components/hospital/doctor-management';
 import PatientOverview from '@/components/hospital/patient-overview';
 
 export default function HospitalDashboard() {
+  const searchParams = useSearchParams();
   const [user, setUser] = useState<any>(null);
   const [hospitalStats] = useState({
     totalDoctors: 25,
@@ -62,6 +64,9 @@ export default function HospitalDashboard() {
       rating: 4.9
     }
   ]);
+
+  // Get the active tab from URL parameters
+  const activeTab = searchParams.get('tab') || 'overview';
 
   useEffect(() => {
     const userData = localStorage.getItem('user');
@@ -151,7 +156,7 @@ export default function HospitalDashboard() {
           </Card>
         </div>
 
-        <Tabs defaultValue="overview" className="space-y-6">
+        <Tabs value={activeTab} className="space-y-6">
           <TabsList className="grid w-full grid-cols-5">
             <TabsTrigger value="overview">Overview</TabsTrigger>
             <TabsTrigger value="doctors">Doctors</TabsTrigger>

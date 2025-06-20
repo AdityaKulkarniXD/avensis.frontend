@@ -17,7 +17,7 @@ import HospitalHeader from '@/components/dashboard/hospital-header';
 export default function AppointmentsPage() {
   const [user, setUser] = useState<any>(null);
   const [searchTerm, setSearchTerm] = useState('');
-  const [filterSpecialty, setFilterSpecialty] = useState('');
+  const [filterSpecialty, setFilterSpecialty] = useState('all');
   const router = useRouter();
 
   const [appointments] = useState([
@@ -128,7 +128,7 @@ export default function AppointmentsPage() {
   const filteredDoctors = availableDoctors.filter(doctor => {
     const matchesSearch = doctor.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          doctor.specialty.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesSpecialty = !filterSpecialty || doctor.specialty === filterSpecialty;
+    const matchesSpecialty = filterSpecialty === 'all' || doctor.specialty === filterSpecialty;
     return matchesSearch && matchesSpecialty;
   });
 
@@ -279,7 +279,7 @@ export default function AppointmentsPage() {
                           <SelectValue placeholder="All Specialties" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="">All Specialties</SelectItem>
+                          <SelectItem value="all">All Specialties</SelectItem>
                           <SelectItem value="Cardiology">Cardiology</SelectItem>
                           <SelectItem value="General Medicine">General Medicine</SelectItem>
                           <SelectItem value="Pediatrics">Pediatrics</SelectItem>
